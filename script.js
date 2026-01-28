@@ -407,6 +407,16 @@ document.addEventListener('DOMContentLoaded', () => {
     if (document.body.classList.contains('debug-mode')) {
       console.log("%c Debug Mode Enabled: Scanning DOM Hierarchy...", "color: #D4AF37; font-weight: bold;");
     }
+
+    const isDebug = document.body.classList.contains('debug-mode');
+
+    if (isDebug) {
+      console.log("%c SYSTEM BREACH: Debug Mode Overridden", "color: #ff0000; font-weight: bold;");
+      // Optional: Change the terminal text color to red in debug mode
+      document.getElementById('terminal-body').style.borderColor = '#ff0000';
+    } else {
+      document.getElementById('terminal-body').style.borderColor = '#1f2937';
+    }
   });
   //============DEBUG TOGGLER====================
 
@@ -472,6 +482,162 @@ document.addEventListener('DOMContentLoaded', () => {
 
   setInterval(drawMatrix, 33);
   //============RAIN====================
+
+
+
+
+  //============FOOTER LATENCY====================
+  async function measureLatency() {
+    const pingDisplay = document.getElementById('ping-ms');
+    const startTime = Date.now();
+
+    try {
+      await fetch('/favicon.ico', {
+        mode: 'no-cors',
+        cache: 'no-store'
+      });
+
+      const endTime = Date.now();
+      const rtt = endTime - startTime;
+
+      // Update display with the actual ping
+      pingDisplay.innerText = rtt;
+
+      // Change color based on performance
+      if (rtt > 200) {
+        pingDisplay.style.color = '#ef4444'; // Red for slow
+      } else if (rtt > 100) {
+        pingDisplay.style.color = '#eab308'; // Yellow for mid
+      } else {
+        pingDisplay.style.color = '#22c55e'; // Green for fast
+      }
+    } catch (err) {
+      pingDisplay.innerText = "OFFLINE";
+    }
+  }
+
+  // Update Network Type using Navigator API
+  function updateNetworkInfo() {
+    const netType = document.getElementById('network-type');
+    if (navigator.connection) {
+      const type = navigator.connection.effectiveType || 'Unknown';
+      netType.innerText = type.toUpperCase();
+    }
+  }
+
+  // Run every 5 seconds
+  setInterval(measureLatency, 5000);
+  measureLatency();
+  updateNetworkInfo();
+  //============FOOTER LATENCY====================
+
+
+
+
+  //============Physics Engine: Active // Drag &Toss Skills====================
+  // Function to initialize Physics
+  const initPhysicsSkills = () => {
+    const container = document.getElementById('skills-physics-container');
+    if (!container) return;
+
+    // Clear previous canvas if it exists (prevents duplicates on resize)
+    container.innerHTML = '<div class="absolute top-4 left-4 z-10 pointer-events-none"><span class="text-[10px] font-mono text-gold-500/50 uppercase tracking-widest">Physics Engine: Drag & Toss Skills</span></div>';
+
+    const { Engine, Render, Runner, Bodies, Composite, Mouse, MouseConstraint, Events } = Matter;
+
+    const engine = Engine.create();
+
+    // Get actual dimensions
+    const width = container.clientWidth;
+    const height = container.clientHeight;
+
+    const render = Render.create({
+      element: container,
+      engine: engine,
+      options: {
+        width: width,
+        height: height,
+        wireframes: false,
+        background: 'transparent',
+        pixelRatio: window.devicePixelRatio // Improves mobile clarity
+      }
+    });
+
+    // Walls - Adjusted for dynamic width
+    const wallOptions = { isStatic: true, render: { visible: false } };
+    const ground = Bodies.rectangle(width / 2, height + 10, width, 20, wallOptions);
+    const leftWall = Bodies.rectangle(-10, height / 2, 20, height, wallOptions);
+    const rightWall = Bodies.rectangle(width + 10, height / 2, 20, height, wallOptions);
+
+    // Skill List
+    const skills = ['Android', 'Java','AJAX', 'XML', 'Room', 'Retrofit', 'HTML', 'CSS', 'JavaScript', 'Bootstrap', 'PHP', 'Node.js', 'TypeScript', 'REST API', 'MySQL', 'PostgreSQL', 'SQLite', 'Firebase', 'Web3.js', 'Ethers.js', 'Solidity', 'Ethereum', 'BSC', 'opBNB', 'TRON', 'Git', 'GitHub', 'Postman', 'Bun', 'Vite', 'Linux','Websocket'];
+
+
+    const skillBodies = skills.map((skill, i) => {
+      // Mobile-friendly spacing: drop them in a stack instead of a long line
+      const randomX = Math.random() * (width - 100) + 50;
+      return Bodies.rectangle(randomX, -50 - (i * 30), 80, 35, {
+        render: {
+          fillStyle: '#1a1a1a',
+          strokeStyle: '#D4AF37',
+          lineWidth: 2
+        },
+        chamfer: { radius: 10 },
+        label: skill
+      });
+    });
+
+    // Custom Rendering for Text
+    Events.on(render, 'afterRender', () => {
+      const context = render.context;
+      context.font = "bold 12px monospace";
+      context.textAlign = "center";
+      context.fillStyle = "#D4AF37";
+      skillBodies.forEach(body => {
+        const { x, y } = body.position;
+        context.save();
+        context.translate(x, y);
+        context.rotate(body.angle);
+        context.fillText(body.label, 0, 5);
+        context.restore();
+      });
+    });
+
+    const mouse = Mouse.create(render.canvas);
+
+    // FIX for Mobile Keyboard & Scrolling
+    mouse.element.removeEventListener("mousewheel", mouse.mousewheel);
+    mouse.element.removeEventListener("DOMMouseScroll", mouse.mousewheel);
+
+    const mouseConstraint = MouseConstraint.create(engine, {
+      mouse: mouse,
+      constraint: { stiffness: 0.2, render: { visible: false } }
+    });
+
+    // Force blur terminal when touching physics
+    Events.on(mouseConstraint, 'mousedown', () => {
+      document.getElementById('terminal-input')?.blur();
+    });
+
+    Composite.add(engine.world, [ground, leftWall, rightWall, ...skillBodies, mouseConstraint]);
+
+    Render.run(render);
+    const runner = Runner.create();
+    Runner.run(runner, engine);
+  };
+
+  // Re-init on resize to keep it responsive
+  window.addEventListener('resize', () => {
+    // Only re-init if width actually changed (prevents mobile URL bar glitch)
+    const oldWidth = document.getElementById('skills-physics-container').dataset.width;
+    if (oldWidth !== window.innerWidth.toString()) {
+      initPhysicsSkills();
+      document.getElementById('skills-physics-container').dataset.width = window.innerWidth;
+    }
+  });
+
+  window.addEventListener('load', initPhysicsSkills);
+  //============Physics Engine: Active // Drag &Toss Skills====================
 
 
 

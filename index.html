@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Sumit Kotiya | Android & Blockchain Developer</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.19.0/matter.min.js"></script>
   <script>
     tailwind.config = {
       theme: {
@@ -75,7 +76,9 @@
       <a href="#experience" class="nav-link text-lg">Experience</a>
       <a href="#projects" class="nav-link text-lg">Projects</a>
       <a href="#contact" class="nav-link text-lg">Contact</a>
+
     </div>
+
   </div>
 
   <!-- Navigation -->
@@ -273,7 +276,7 @@
           </li>
           <li class="flex items-center">
             <i class="fas fa-circle text-xs text-gold-500 mr-2"></i>
-            Node.js (Learning)
+            Node.js
           </li>
           <li class="flex items-center">
             <i class="fas fa-circle text-xs text-gold-500 mr-2"></i>
@@ -451,6 +454,15 @@
             Tailwind CSS
           </li>
         </ul>
+      </div>
+    </div>
+
+    <div id="skills-physics-container"
+      class="relative w-full h-[400px] bg-dark-900/50 border border-gray-800 rounded-xl overflow-hidden mt-10">
+      <div class="absolute top-4 left-4 z-10 pointer-events-none">
+        <span class="text-[10px] font-mono text-gold-500/50 uppercase tracking-widest">
+          Physics Engine: Drag & Toss Skills
+        </span>
       </div>
     </div>
   </section>
@@ -817,6 +829,23 @@
           class="text-gray-500 hover:text-gold-500 transition text-lg">
           <i class="fab fa-instagram"></i>
         </a>
+      </div>
+      <div
+        class="flex items-center justify-center space-x-4 mt-8 font-mono text-[10px] text-gray-500 uppercase tracking-tighter">
+        <div class="flex items-center">
+          <span class="w-1.5 h-1.5 rounded-full bg-green-500 mr-2 animate-pulse"></span>
+          <span>Latency: <span id="ping-ms">--</span>ms</span>
+        </div>
+        <div class="hidden sm:block border-l border-gray-800 h-3"></div>
+        <div class="hidden sm:flex items-center">
+          <i class="fas fa-microchip mr-2 text-gold-500/50"></i>
+          <span>Packet Loss: 0%</span>
+        </div>
+        <div class="hidden sm:block border-l border-gray-800 h-3"></div>
+        <div class="flex items-center">
+          <i class="fas fa-wifi mr-2 text-gold-500/50"></i>
+          <span id="network-type">4G/Fiber</span>
+        </div>
       </div>
     </div>
   </footer>

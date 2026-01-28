@@ -292,7 +292,47 @@ body.debug-mode::after {
     100% { top: 100%; }
 }
 
+
+
+/* Normal state: Gold rain falling down */
 #matrix-canvas {
-    /* Subtle blur adds a neon/glow effect to the falling code */
+    transition: filter 0.5s ease, transform 1s ease;
     filter: drop-shadow(0 0 5px rgba(212, 175, 55, 0.5));
+}
+
+/* Debug state: Red rain falling up */
+body.debug-mode #matrix-canvas {
+    /* Changes Gold to Red using hue-rotate and increases intensity */
+    filter: hue-rotate(140deg) saturate(3) drop-shadow(0 0 8px #ff0000);
+    /* Flips the canvas vertically */
+    transform: scaleY(-1); 
+}
+
+/* When Debug Mode is ON, make the latency look like a critical system failure */
+body.debug-mode #ping-ms {
+    animation: glitch-text 0.2s infinite;
+    color: #ff0000 !important;
+}
+
+@keyframes glitch-text {
+    0% { transform: translate(0); }
+    20% { transform: translate(-1px, 1px); }
+    40% { transform: translate(-1px, -1px); }
+    60% { transform: translate(1px, 1px); }
+    80% { transform: translate(1px, -1px); }
+    100% { transform: translate(0); }
+}
+
+
+#skills-physics-container canvas {
+    touch-action: none; /* Prevents scrolling/focusing while dragging blocks */
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+    outline: none;
+}
+
+#skills-physics-container canvas {
+    max-width: 100%;
+    height: auto;
+    touch-action: none; /* Crucial: stops the browser from scrolling while dragging */
 }
