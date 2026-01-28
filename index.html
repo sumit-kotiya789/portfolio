@@ -1,0 +1,814 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sumit Kotiya | Android & Blockchain Developer</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            gold: {
+              400: "#D4AF37",
+              500: "#B7950B",
+              600: "#9C7C00",
+            },
+            dark: {
+              900: "#0a0a0a",
+              800: "#1a1a1a",
+              700: "#2a2a2a",
+            },
+          },
+          animation: {
+            float: "float 3s ease-in-out infinite",
+            "pulse-slow": "pulse 2s ease-in-out infinite",
+            "slide-up": "slideUp 0.5s ease-out",
+            "slide-in-right": "slideInRight 0.6s ease-out",
+            "fade-in": "fadeIn 0.8s ease-out",
+          },
+          keyframes: {
+            float: {
+              "0%, 100%": { transform: "translateY(0)" },
+              "50%": { transform: "translateY(-10px)" },
+            },
+            slideUp: {
+              "0%": { transform: "translateY(20px)", opacity: "0" },
+              "100%": { transform: "translateY(0)", opacity: "1" },
+            },
+            slideInRight: {
+              "0%": { transform: "translateX(-20px)", opacity: "0" },
+              "100%": { transform: "translateX(0)", opacity: "1" },
+            },
+            fadeIn: {
+              "0%": { opacity: "0" },
+              "100%": { opacity: "1" },
+            },
+          },
+        },
+      },
+    };
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/6.13.2/ethers.umd.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+
+  <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+
+  <link rel="stylesheet" href="./style.css">
+
+</head>
+
+<body class="font-sans">
+  <!-- Mobile Menu -->
+  <div id="mobileMenu" class="mobile-menu fixed inset-y-0 left-0 w-64 bg-dark-800 z-50 p-6 md:hidden">
+    <div class="flex justify-between items-center mb-8">
+      <span class="text-xl font-bold gold-gradient">Sumit Kotiya</span>
+      <button id="closeMenu" class="text-gray-400 hover:text-white">
+        <i class="fas fa-times text-xl"></i>
+      </button>
+    </div>
+    <div class="flex flex-col space-y-6">
+      <a href="#about" class="nav-link text-lg">About</a>
+      <a href="#skills" class="nav-link text-lg">Skills</a>
+      <a href="#experience" class="nav-link text-lg">Experience</a>
+      <a href="#projects" class="nav-link text-lg">Projects</a>
+      <a href="#contact" class="nav-link text-lg">Contact</a>
+    </div>
+  </div>
+
+  <!-- Navigation -->
+  <nav class="fixed w-full bg-dark-900/90 backdrop-blur-md z-40 border-b border-gray-900">
+    <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+      <span class="text-xl md:text-2xl font-bold gold-gradient">Sumit Kotiya</span>
+
+      <!-- Desktop Navigation -->
+      <div class="hidden md:flex space-x-6 lg:space-x-8 font-medium">
+        <a href="#about" class="nav-link">About</a>
+        <a href="#skills" class="nav-link">Skills</a>
+        <a href="#experience" class="nav-link">Experience</a>
+        <a href="#projects" class="nav-link">Projects</a>
+        <a href="#contact" class="nav-link">Contact</a>
+      </div>
+
+      <!-- Mobile Menu Button -->
+      <button id="openMenu" class="md:hidden text-gray-300">
+        <i class="fas fa-bars text-xl"></i>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section id="about"
+    class="min-h-screen flex items-center pt-24 pb-16 md:pt-32 md:pb-24 hero-gradient animate-on-scroll">
+    <div class="container mx-auto px-4">
+      <div class="max-w-4xl mx-auto text-center">
+
+        <div class="mb-8">
+          <div
+            class="w-32 h-32 md:w-40 md:h-40 mx-auto mb-6 rounded-full overflow-hidden border-4 border-dark-700 animate-float">
+            <div class="w-full h-full gold-bg flex items-center justify-center">
+              <span class="text-3xl md:text-5xl font-bold text-dark-900">SK</span>
+            </div>
+          </div>
+
+          <h1 class="text-3xl md:text-5xl font-bold mb-3 md:mb-4">
+            Sumit <span class="gold-gradient">Kotiya</span>
+          </h1>
+
+          <div class="inline-flex items-center justify-center space-x-2 mb-4 md:mb-6">
+            <div class="w-2 h-2 rounded-full gold-bg"></div>
+            <p class="text-lg md:text-xl text-gray-300">
+              Android, Blockchain & Backend Developer
+            </p>
+            <div class="w-2 h-2 rounded-full gold-bg"></div>
+          </div>
+
+          <p class="text-gray-400 mb-8 max-w-2xl mx-auto text-sm md:text-base px-4 leading-relaxed">
+            Specializing in Android development, backend systems, and blockchain
+            integrations. Experienced in creating scalable applications with
+            real-world impact.
+          </p>
+
+          <div class="flex justify-center space-x-4 md:space-x-6">
+            <a href="mailto:sumit.kotiya789@gmail.com" class="social-icon">
+              <i class="fas fa-envelope"></i>
+            </a>
+            <a target="_blank" href="https://www.linkedin.com/in/sumit-kotiya-a511b0331/" class="social-icon">
+              <i class="fab fa-linkedin-in"></i>
+            </a>
+            <a target="_blank" href="https://github.com/sumit-kotiya789" class="social-icon">
+              <i class="fab fa-github"></i>
+            </a>
+          </div>
+        </div>
+
+        <div class="max-w-3xl mx-auto mt-6 md:mt-10 px-0 md:px-4">
+          <div class="bg-dark-900 rounded-t-lg border-t border-x border-gray-800 p-3 flex items-center justify-between">
+            <div class="flex items-center space-x-2">
+              <div class="flex space-x-1.5">
+                <div class="w-3 h-3 rounded-full bg-red-500/20 border border-red-500/40"></div>
+                <div class="w-3 h-3 rounded-full bg-yellow-500/20 border border-yellow-500/40"></div>
+                <div class="w-3 h-3 rounded-full bg-green-500/20 border border-green-500/40"></div>
+              </div>
+              <span class="text-[10px] font-mono text-gray-500 uppercase tracking-widest ml-4 hidden sm:block">bash —
+                sumit@portfolio</span>
+            </div>
+
+            <div class="flex items-center space-x-2 bg-green-500/10 px-2 py-0.5 rounded border border-green-500/20">
+              <span class="relative flex h-1.5 w-1.5">
+                <span
+                  class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                <span class="relative inline-flex rounded-full h-1.5 w-1.5 bg-green-500"></span>
+              </span>
+              <span class="text-[9px] text-green-500 font-mono font-bold uppercase tracking-tighter">Interactive
+                Terminal</span>
+            </div>
+          </div>
+
+          <div
+            class="bg-dark-900/50 border border-gray-800 rounded-b-lg p-5 font-mono text-xs md:text-sm h-64 overflow-y-auto custom-scrollbar shadow-2xl text-left"
+            id="terminal-body">
+            <div class="text-gray-500 text-[10px] mb-4 opacity-60 border-b border-gray-800 pb-2 flex justify-between">
+              <span>Session: Sumit@Portfolio_v1.0</span>
+              <span><span id="current-date"></span></span>
+            </div>
+
+            <div id="terminal-history"></div>
+
+            <div class="flex items-center mt-4 group">
+              <span class="text-green-500 font-bold mr-2">➜</span>
+              <span class="text-gray-500 mr-2">~</span>
+              <input type="text" id="terminal-input" autofocus
+                class="bg-transparent border-none outline-none flex-1 text-gold-400 caret-gold-500 font-bold"
+                autocomplete="off" spellcheck="false">
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Skills Section -->
+  <section id="skills" class="py-12 md:py-20 container mx-auto px-4">
+    <h2 class="text-2xl md:text-3xl font-bold text-center mb-8 md:mb-12 section-title animate-on-scroll">
+      Technical Skills
+    </h2>
+
+    <p class="text-center text-gray-400 mb-8 md:mb-12 max-w-2xl mx-auto text-sm md:text-base animate-on-scroll">
+      Practical experience across Android development, backend systems, web
+      technologies, and
+      <span class="gold-gradient font-medium">blockchain integrations</span>
+      with smart contract development.
+    </p>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+      <!-- Android Development (First on mobile) -->
+      <div class="skill-card p-5 md:p-6 animate-on-scroll">
+        <div class="flex items-center mb-3 md:mb-4">
+          <div class="w-8 h-8 md:w-10 md:h-10 rounded-lg gold-bg flex items-center justify-center mr-3">
+            <i class="fab fa-android text-dark-900"></i>
+          </div>
+          <h3 class="font-bold text-base md:text-lg">Android Development</h3>
+        </div>
+        <ul class="text-gray-400 space-y-1 md:space-y-2 text-sm">
+          <li class="flex items-center">
+            <i class="fas fa-circle text-xs text-gold-500 mr-2"></i>
+            Android Studio (Java)
+          </li>
+          <li class="flex items-center">
+            <i class="fas fa-circle text-xs text-gold-500 mr-2"></i>
+            XML Layouts & Material UI
+          </li>
+          <li class="flex items-center">
+            <i class="fas fa-circle text-xs text-gold-500 mr-2"></i>
+            MVVM Architecture
+          </li>
+          <li class="flex items-center">
+            <i class="fas fa-circle text-xs text-gold-500 mr-2"></i>
+            Room DB & SQLite
+          </li>
+          <li class="flex items-center">
+            <i class="fas fa-circle text-xs text-gold-500 mr-2"></i>
+            Retrofit (REST APIs)
+          </li>
+        </ul>
+      </div>
+
+      <!-- Backend Development -->
+      <div id="openApiPlayground" class="skill-card p-5 md:p-6 animate-on-scroll">
+        <div class="flex items-center mb-3 md:mb-4">
+          <div class="w-8 h-8 md:w-10 md:h-10 rounded-lg gold-bg flex items-center justify-center mr-3">
+            <i class="fas fa-server text-dark-900"></i>
+          </div>
+          <h3 class="font-bold text-base md:text-lg">Backend Development</h3>
+        </div>
+        <ul class="text-gray-400 space-y-1 md:space-y-2 text-sm">
+          <li class="flex items-center">
+            <i class="fas fa-circle text-xs text-gold-500 mr-2"></i>
+            PHP REST API Development
+          </li>
+          <li class="flex items-center">
+            <i class="fas fa-circle text-xs text-gold-500 mr-2"></i>
+            Authentication & Sessions
+          </li>
+          <li class="flex items-center">
+            <i class="fas fa-circle text-xs text-gold-500 mr-2"></i>
+            JWT (Basic)
+          </li>
+          <li class="flex items-center">
+            <i class="fas fa-circle text-xs text-gold-500 mr-2"></i>
+            Node.js (Learning)
+          </li>
+          <li class="flex items-center">
+            <i class="fas fa-circle text-xs text-gold-500 mr-2"></i>
+            JDBC
+          </li>
+        </ul>
+        <button id="openApiPlayground"
+          class="w-full py-2 px-4 bg-dark-700 hover:bg-gold-500 hover:text-dark-900 text-gold-400 border border-gold-500/30 rounded-lg transition-all text-xs font-bold tracking-widest uppercase mt-4">
+          Test API <i class="fas fa-play ml-2 text-[10px]"></i>
+        </button>
+      </div>
+
+      <!-- Blockchain & Web3 (Enhanced Position) -->
+      <div id="openDeepDive" class="skill-card blockchain-card p-5 md:p-6 animate-on-scroll order-first lg:order-none">
+        <div class="flex justify-between items-start mb-3 md:mb-4">
+          <div class="flex items-center">
+            <div class="w-8 h-8 md:w-10 md:h-10 rounded-lg gold-bg flex items-center justify-center mr-3">
+              <i class="fas fa-link text-dark-900"></i>
+            </div>
+            <h3 class="font-bold text-base md:text-lg">Blockchain & Web3</h3>
+          </div>
+          <div class="flex items-center space-x-2 bg-green-500/10 px-2 py-1 rounded border border-green-500/20">
+            <span class="relative flex h-2 w-2">
+              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+              <span class="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+            </span>
+            <span class="text-[10px] text-green-400 font-mono uppercase tracking-tighter">BSC Live</span>
+          </div>
+        </div>
+
+        <div
+          class="grid grid-cols-2 gap-2 mb-4 p-2 bg-dark-900/50 rounded-lg border border-white/5 font-mono text-[11px]">
+          <div class="text-left">
+            <p class="text-gray-500 uppercase">Latest Block</p>
+            <p id="latest-block" class="text-gold-400">Loading...</p>
+          </div>
+
+        </div>
+
+        <ul class="text-gray-400 space-y-1 md:space-y-2 text-sm">
+          <li class="flex items-center">
+            <i class="fas fa-star text-xs text-gold-500 mr-2"></i>
+            Smart Contract Development
+          </li>
+          <li class="flex items-center">
+            <i class="fas fa-circle text-xs text-gold-500 mr-2"></i>
+            BNB Smart Chain & opBNB
+          </li>
+          <li class="flex items-center">
+            <i class="fas fa-circle text-xs text-gold-500 mr-2"></i>
+            Web3.js / Ethers.js Integration
+          </li>
+        </ul>
+        <br>
+        <button
+          class="w-full py-2 px-4 bg-dark-700 hover:bg-gold-500 hover:text-dark-900 text-gold-400 border border-gold-500/30 rounded-lg transition-all text-xs font-bold tracking-widest uppercase">
+          Deep Dive <i class="fas fa-arrow-right ml-2 text-[10px]"></i>
+        </button>
+      </div>
+
+      <!-- Databases -->
+      <div class="skill-card p-5 md:p-6 animate-on-scroll">
+        <div class="flex items-center mb-3 md:mb-4">
+          <div class="w-8 h-8 md:w-10 md:h-10 rounded-lg gold-bg flex items-center justify-center mr-3">
+            <i class="fas fa-database text-dark-900"></i>
+          </div>
+          <h3 class="font-bold text-base md:text-lg">Databases</h3>
+        </div>
+        <ul class="text-gray-400 space-y-1 md:space-y-2 text-sm">
+          <li class="flex items-center">
+            <i class="fas fa-circle text-xs text-gold-500 mr-2"></i>
+            MySQL
+          </li>
+          <li class="flex items-center">
+            <i class="fas fa-circle text-xs text-gold-500 mr-2"></i>
+            SQLite
+          </li>
+          <li class="flex items-center">
+            <i class="fas fa-circle text-xs text-gold-500 mr-2"></i>
+            Firebase Realtime DB
+          </li>
+          <li class="flex items-center">
+            <i class="fas fa-circle text-xs text-gold-500 mr-2"></i>
+            Database Normalization
+          </li>
+          <li class="flex items-center">
+            <i class="fas fa-circle text-xs text-gold-500 mr-2"></i>
+            SQL Query Optimization
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Additional Skills Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 mt-6 md:mt-8">
+      <!-- Programming -->
+      <div class="skill-card p-5 md:p-6 animate-on-scroll">
+        <div class="flex items-center mb-3">
+          <div class="w-8 h-8 md:w-10 md:h-10 rounded-lg bg-blue-500/20 flex items-center justify-center mr-3">
+            <i class="fas fa-code text-blue-400"></i>
+          </div>
+          <h3 class="font-bold text-base md:text-lg">Programming</h3>
+        </div>
+        <ul class="text-gray-400 space-y-1 text-sm">
+          <li class="flex items-center">
+            <i class="fas fa-circle text-xs text-blue-400 mr-2"></i>
+            Java (OOP, Collections)
+          </li>
+          <li class="flex items-center">
+            <i class="fas fa-circle text-xs text-blue-400 mr-2"></i>
+            PHP
+          </li>
+          <li class="flex items-center">
+            <i class="fas fa-circle text-xs text-blue-400 mr-2"></i>
+            JavaScript (ES6+)
+          </li>
+          <li class="flex items-center">
+            <i class="fas fa-circle text-xs text-blue-400 mr-2"></i>
+            C
+          </li>
+        </ul>
+      </div>
+
+      <!-- Tools -->
+      <div class="skill-card p-5 md:p-6 animate-on-scroll">
+        <div class="flex items-center mb-3">
+          <div class="w-8 h-8 md:w-10 md:h-10 rounded-lg bg-green-500/20 flex items-center justify-center mr-3">
+            <i class="fas fa-tools text-green-400"></i>
+          </div>
+          <h3 class="font-bold text-base md:text-lg">Tools & Workflow</h3>
+        </div>
+        <ul class="text-gray-400 space-y-1 text-sm">
+          <li class="flex items-center">
+            <i class="fas fa-circle text-xs text-green-400 mr-2"></i>
+            Git & GitHub
+          </li>
+          <li class="flex items-center">
+            <i class="fas fa-circle text-xs text-green-400 mr-2"></i>
+            Postman
+          </li>
+          <li class="flex items-center">
+            <i class="fas fa-circle text-xs text-green-400 mr-2"></i>
+            Debugging & Logging
+          </li>
+          <li class="flex items-center">
+            <i class="fas fa-circle text-xs text-green-400 mr-2"></i>
+            Basic Linux
+          </li>
+        </ul>
+      </div>
+
+      <!-- Web Development -->
+      <div class="skill-card p-5 md:p-6 animate-on-scroll">
+        <div class="flex items-center mb-3">
+          <div class="w-8 h-8 md:w-10 md:h-10 rounded-lg bg-purple-500/20 flex items-center justify-center mr-3">
+            <i class="fas fa-globe text-purple-400"></i>
+          </div>
+          <h3 class="font-bold text-base md:text-lg">Web Development</h3>
+        </div>
+        <ul class="text-gray-400 space-y-1 text-sm">
+          <li class="flex items-center">
+            <i class="fas fa-circle text-xs text-purple-400 mr-2"></i>
+            HTML5 & CSS3
+          </li>
+          <li class="flex items-center">
+            <i class="fas fa-circle text-xs text-purple-400 mr-2"></i>
+            Responsive Design
+          </li>
+          <li class="flex items-center">
+            <i class="fas fa-circle text-xs text-purple-400 mr-2"></i>
+            AJAX / Fetch API
+          </li>
+          <li class="flex items-center">
+            <i class="fas fa-circle text-xs text-purple-400 mr-2"></i>
+            Tailwind CSS
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Experience Section -->
+  <section id="experience" class="py-12 md:py-20 bg-dark-900 animate-on-scroll">
+    <div class="container mx-auto px-4">
+      <h2 class="text-2xl md:text-3xl font-bold text-center mb-8 md:mb-12 section-title">
+        Work Experience
+      </h2>
+
+      <div class="max-w-3xl mx-auto space-y-8">
+        <!-- Current Experience -->
+        <div class="relative pl-8 md:pl-12">
+          <div class="timeline-dot absolute left-0 top-2 rounded-full"></div>
+          <div class="experience-card p-5 md:p-8 rounded-lg">
+            <span class="text-gold-500 font-bold text-sm md:text-base">Jun 2025 - Present</span>
+            <h3 class="text-lg md:text-xl font-bold mt-2 text-white">
+              DET Intern | Zanthium Technosoft Pvt. Ltd.
+            </h3>
+            <p class="text-gray-400 mt-3 md:mt-4 text-sm md:text-base">
+              Developing full-stack features using Android (Java), PHP, and
+              Node.js. Focused on bug fixing, REST API integration, and
+              database management with MySQL.
+            </p>
+            <div class="mt-4 flex flex-wrap gap-2">
+              <span class="tag">Android</span>
+              <span class="tag">PHP</span>
+              <span class="tag">Node.js</span>
+              <span class="tag">MySQL</span>
+              <span class="tag">REST APIs</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Previous Experience -->
+        <div class="relative pl-8 md:pl-12">
+          <div class="timeline-dot absolute left-0 top-2 rounded-full"></div>
+          <div class="experience-card p-5 md:p-8 rounded-lg">
+            <span class="text-gray-400 font-bold text-sm md:text-base">2024 (3 Months)</span>
+            <h3 class="text-lg md:text-xl font-bold mt-2 text-white">
+              Industrial Training – Java | Verma Institute
+            </h3>
+            <p class="text-gray-400 mt-3 md:mt-4 text-sm md:text-base">
+              Completed intensive Java training under the Ministry of Labour
+              Welfare. Built projects focusing on OOP principles and JDBC
+              database connectivity.
+            </p>
+            <div class="mt-4 flex flex-wrap gap-2">
+              <span class="tag">Java</span>
+              <span class="tag">OOP</span>
+              <span class="tag">JDBC</span>
+              <span class="tag">Training</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+  <!-- Projects Section -->
+  <section id="projects" class="py-12 md:py-20 container mx-auto px-4 animate-on-scroll">
+    <h2 class="text-2xl md:text-3xl font-bold text-center mb-8 md:mb-12 section-title">
+      Featured Projects
+    </h2>
+
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+      <!-- E-commerce App -->
+      <div class="project-card rounded-xl overflow-hidden">
+        <div class="p-5 md:p-6">
+          <div class="w-10 h-10 md:w-12 md:h-12 rounded-lg gold-bg flex items-center justify-center mb-4">
+            <i class="fas fa-shopping-cart text-dark-900"></i>
+          </div>
+          <h3 class="text-lg md:text-xl font-bold mb-2 md:mb-3 text-white">
+            E-commerce App
+          </h3>
+          <p class="text-gray-400 text-sm mb-4 md:mb-6">
+            A complete shopping solution with cart features and PHP-MySQL
+            backend integration.
+          </p>
+          <div class="flex flex-wrap gap-2">
+            <span class="tag text-xs">Android</span>
+            <span class="tag text-xs">Retrofit</span>
+            <span class="tag text-xs">PHP</span>
+            <span class="tag text-xs">MySQL</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Blockchain Integration Project -->
+      <div class="project-card rounded-xl overflow-hidden border-gold-500 relative">
+        <div class="absolute top-2 right-2">
+          <span class="text-xs gold-gradient font-bold bg-dark-900 px-2 py-1 rounded">Blockchain</span>
+        </div>
+        <div class="p-5 md:p-6">
+          <div class="w-10 h-10 md:w-12 md:h-12 rounded-lg gold-bg flex items-center justify-center mb-4">
+            <i class="fab fa-ethereum text-dark-900"></i>
+          </div>
+          <h3 class="text-lg md:text-xl font-bold mb-2 md:mb-3 text-white">
+            Crypto Payment Integration
+          </h3>
+          <p class="text-gray-400 text-sm mb-4 md:mb-6">
+            Smart contract-based payment system with BSC integration and
+            Web3.js frontend.
+          </p>
+          <div class="flex flex-wrap gap-2">
+            <span class="tag text-xs">Web3.js</span>
+            <span class="tag text-xs">Smart Contracts</span>
+            <span class="tag text-xs">BSC</span>
+            <span class="tag text-xs">PHP</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Real-time Chat App -->
+      <div class="project-card rounded-xl overflow-hidden">
+        <div class="p-5 md:p-6">
+          <div class="w-10 h-10 md:w-12 md:h-12 rounded-lg gold-bg flex items-center justify-center mb-4">
+            <i class="fas fa-comments text-dark-900"></i>
+          </div>
+          <h3 class="text-lg md:text-xl font-bold mb-2 md:mb-3 text-white">
+            Real-time Chat App
+          </h3>
+          <p class="text-gray-400 text-sm mb-4 md:mb-6">
+            Secure messaging platform using Firebase for real-time data sync
+            and user authentication.
+          </p>
+          <div class="flex flex-wrap gap-2">
+            <span class="tag text-xs">Firebase</span>
+            <span class="tag text-xs">Java</span>
+            <span class="tag text-xs">Real-time</span>
+            <span class="tag text-xs">Authentication</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact" class="py-12 md:py-20 bg-dark-800 animate-on-scroll">
+    <div class="container mx-auto px-4 text-center">
+      <h2 class="text-2xl md:text-3xl font-bold mb-6 md:mb-8 section-title">
+        Get In Touch
+      </h2>
+
+      <p class="mb-8 md:mb-12 text-gray-400 max-w-2xl mx-auto text-sm md:text-base">
+        I'm always open to discussing new projects, opportunities, or
+        collaboration ideas. Feel free to reach out!
+      </p>
+
+      <div
+        class="flex flex-col md:flex-row justify-center items-center space-y-6 md:space-y-0 md:space-x-12 mb-8 md:mb-12">
+        <a href="tel:+919557799849" class="flex items-center text-base md:text-lg group">
+          <div
+            class="w-10 h-10 md:w-12 md:h-12 rounded-full gold-bg flex items-center justify-center mr-3 md:mr-4 group-hover:scale-110 transition-transform">
+            <i class="fas fa-phone text-dark-900"></i>
+          </div>
+          <div class="text-left">
+            <p class="text-gray-400 text-xs md:text-sm">Phone</p>
+            <p class="font-semibold">(+91) 9557799849</p>
+          </div>
+        </a>
+
+        <a href="mailto:sumit.kotiya789@gmail.com" class="flex items-center text-base md:text-lg group">
+          <div
+            class="w-10 h-10 md:w-12 md:h-12 rounded-full gold-bg flex items-center justify-center mr-3 md:mr-4 group-hover:scale-110 transition-transform">
+            <i class="fas fa-envelope text-dark-900"></i>
+          </div>
+          <div class="text-left">
+            <p class="text-gray-400 text-xs md:text-sm">Email</p>
+            <p class="font-semibold">sumit.kotiya789@gmail.com</p>
+          </div>
+        </a>
+      </div>
+
+      <!-- Contact Form -->
+      <div class="max-w-md mx-auto animate-on-scroll">
+        <form id="contactForm" class="space-y-4">
+          <div class="space-y-2">
+            <input type="text" name="name" placeholder="Your Name" required
+              class="w-full p-3 bg-dark-700 border border-gray-800 rounded-lg focus:outline-none focus:border-gold-500 text-sm md:text-base" />
+          </div>
+          <div class="space-y-2">
+            <input type="email" name="email" placeholder="Your Email" required
+              class="w-full p-3 bg-dark-700 border border-gray-800 rounded-lg focus:outline-none focus:border-gold-500 text-sm md:text-base" />
+          </div>
+          <div class="space-y-2">
+            <textarea name="message" placeholder="Your Message" rows="4" required
+              class="w-full p-3 bg-dark-700 border border-gray-800 rounded-lg focus:outline-none focus:border-gold-500 text-sm md:text-base"></textarea>
+          </div>
+          <button type="submit"
+            class="w-full gold-bg text-dark-900 font-bold py-3 rounded-lg hover:opacity-90 transition text-sm md:text-base">
+            Send Message
+          </button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- //blockchain model -->
+  <div id="web3Modal" class="fixed inset-0 z-[100] hidden items-center justify-center p-4">
+    <div id="modalBackdrop" class="absolute inset-0 bg-black/80 backdrop-blur-sm"></div>
+
+    <div
+      class="relative w-full max-w-2xl bg-dark-800 border border-gold-500/30 rounded-2xl shadow-2xl overflow-hidden animate-slide-up">
+      <div class="p-6 border-b border-gray-800 flex justify-between items-center bg-dark-900/50 text-white">
+        <h3 class="text-xl font-bold gold-gradient flex items-center">
+          <i class="fas fa-satellite-dish mr-3 text-gold-500"></i> Real-Time Node Metrics
+        </h3>
+        <button id="closeModal" class="text-gray-400 hover:text-white transition-colors">
+          <i class="fas fa-times text-xl"></i>
+        </button>
+      </div>
+
+      <div class="p-6 max-h-[70vh] overflow-y-auto space-y-6 custom-scrollbar">
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div class="p-3 bg-dark-900 rounded-lg border border-gold-500/10">
+            <p class="text-gray-500 text-[10px] uppercase font-bold mb-1">BNB Price</p>
+            <p id="modal-bnb-price" class="text-lg font-bold text-white tracking-tight">Fetching...</p>
+          </div>
+          <div class="p-3 bg-dark-900 rounded-lg border border-gold-500/10 relative overflow-hidden">
+            <p class="text-gray-500 text-[10px] uppercase font-bold mb-1">Active Peers</p>
+            <div class="flex items-center space-x-2">
+              <p id="modal-peers" class="text-lg font-bold text-white tracking-tight">Loading...</p>
+              <div id="peer-status-dot" class="w-2 h-2 rounded-full bg-gray-600"></div>
+            </div>
+            <p id="peer-status-label" class="text-[9px] uppercase font-mono text-gray-500 mt-1 tracking-widest italic">
+              Synchronizing</p>
+          </div>
+          <div class="p-3 bg-dark-900 rounded-lg border border-gold-500/10">
+            <p class="text-gray-500 text-[10px] uppercase font-bold mb-1">Network</p>
+            <p class="text-lg font-bold text-white tracking-tight">BSC Mainnet</p>
+          </div>
+        </div>
+
+        <div>
+          <div class="flex justify-between items-center mb-3">
+            <h4 class="text-gold-400 font-mono text-xs uppercase tracking-tighter">03. Recent Block Activity</h4>
+            <span
+              class="text-[10px] bg-gold-500/10 text-gold-500 px-2 py-0.5 rounded border border-gold-500/20 animate-pulse">Live
+              Stream</span>
+          </div>
+          <div id="tx-log"
+            class="bg-dark-900 rounded-xl border border-white/5 p-2 font-mono text-[10px] space-y-1 min-h-[150px]">
+            <p class="text-gray-600 text-center py-12 italic">Synchronizing with blockchain...</p>
+          </div>
+        </div>
+
+        <div class="p-4 bg-gold-500/5 rounded-lg border border-gold-500/10">
+          <h4 class="text-white text-xs font-bold mb-2 flex items-center">
+            <i class="fas fa-code-branch mr-2 text-gold-500"></i> Tech Execution
+          </h4>
+          <p class="text-gray-400 text-xs leading-relaxed">
+            This model uses <strong>Ethers.js v6</strong> to query the <code>eth_getBlockByNumber</code> and
+            <code>net_peerCount</code> JSON-RPC methods every 3 seconds, mapping raw hex data to a user-friendly UI.
+          </p>
+        </div>
+      </div>
+
+      <div class="p-4 bg-dark-900/80 border-t border-gray-800 text-center">
+        <p class="text-[10px] text-gray-500 font-mono uppercase">Decentralized Monitoring System | 3s Sync Interval</p>
+      </div>
+    </div>
+  </div>
+  <style>
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 4px;
+    }
+
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: #0a0a0a;
+    }
+
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: #D4AF37;
+      border-radius: 10px;
+    }
+  </style>
+
+  <!-- backend model -->
+  <div id="apiModal" class="fixed inset-0 z-[100] hidden items-center justify-center p-4">
+    <div id="apiModalBackdrop" class="absolute inset-0 bg-black/80 backdrop-blur-sm"></div>
+
+    <div
+      class="relative w-full max-w-2xl bg-dark-800 border border-gold-500/30 rounded-2xl shadow-2xl overflow-hidden animate-slide-up">
+      <div class="p-4 border-b border-gray-800 flex justify-between items-center bg-dark-900/50">
+        <h3 class="text-lg font-bold gold-gradient flex items-center">
+          <i class="fas fa-terminal mr-3 text-gold-500"></i> Backend API Playground
+        </h3>
+        <button id="closeApiModal" class="text-gray-400 hover:text-white"><i class="fas fa-times"></i></button>
+      </div>
+
+      <div class="p-6 space-y-4">
+        <div class="bg-blue-500/10 border border-blue-500/20 p-3 rounded-lg">
+          <p class="text-[11px] text-blue-300 leading-relaxed">
+            <i class="fas fa-info-circle mr-1"></i>
+            <strong>Developer Tip:</strong> This is a live simulation. Try <strong>editing the URL</strong> to see a
+            <span class="text-red-400">404</span> error, or <strong>spam the SEND button(more than 3 times)</strong> to
+            trigger a <span class="text-yellow-400">429</span> rate limit.
+          </p>
+        </div>
+
+        <div class="flex items-center space-x-2 bg-dark-900 p-2 rounded-lg border border-white/5">
+          <span class="text-green-500 font-bold text-[10px] px-2 border-r border-gray-800">GET</span>
+          <input type="text" id="apiEndpoint" value="https://api.sumitkotiya.dev/v1/developer/stats"
+            class="bg-transparent text-gray-300 text-xs flex-1 outline-none font-mono">
+          <button id="sendRequest"
+            class="bg-gold-500 text-dark-900 px-4 py-1 rounded-md text-xs font-bold hover:bg-gold-400 transition">
+            SEND
+          </button>
+        </div>
+
+        <div class="space-y-2">
+          <div class="flex justify-between text-[10px] font-mono text-gray-500 uppercase tracking-widest">
+            <span>Response Body</span>
+            <span id="resStatus" class="hidden">200 OK</span>
+            <button id="copyJson" class="hover:text-gold-500 transition-colors hidden">
+              <i class="far fa-copy"></i> COPY
+            </button>
+          </div>
+          <div class="bg-dark-900 rounded-lg p-4 border border-white/5 h-64 overflow-y-auto custom-scrollbar">
+            <pre id="apiResponse"
+              class="text-gray-500 italic font-mono text-sm">// Click Send to fetch developer data...</pre>
+          </div>
+        </div>
+      </div>
+
+      <div class="p-3 bg-dark-900/80 border-t border-gray-800 flex justify-center space-x-6">
+        <div class="flex items-center text-[9px] text-gray-500 font-mono">
+          <span class="w-2 h-2 bg-green-500 rounded-full mr-2"></span> 200: Success
+        </div>
+        <div class="flex items-center text-[9px] text-gray-500 font-mono">
+          <span class="w-2 h-2 bg-red-500 rounded-full mr-2"></span> 404: Not Found
+        </div>
+        <div class="flex items-center text-[9px] text-gray-500 font-mono">
+          <span class="w-2 h-2 bg-yellow-500 rounded-full mr-2"></span> 429: Limit
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <!-- Footer -->
+  <footer class="py-6 md:py-8 text-center border-t border-gray-900">
+    <div class="container mx-auto px-4">
+      <p class="text-gray-500 mb-4 text-sm md:text-base">
+        &copy; 2026 <span class="gold-gradient font-bold">Sumit Kotiya</span>.
+        All Rights Reserved.
+      </p>
+      <div class="flex justify-center space-x-4 md:space-x-6">
+        <a href="https://www.linkedin.com/in/sumit-kotiya-a511b0331/"
+          class="text-gray-500 hover:text-gold-500 transition text-lg">
+          <i class="fab fa-linkedin-in"></i>
+        </a>
+        <a href="https://github.com/sumit-kotiya789" class="text-gray-500 hover:text-gold-500 transition text-lg">
+          <i class="fab fa-github"></i>
+        </a>
+        <a href="https://www.instagram.com/the_brahmin_boi"
+          class="text-gray-500 hover:text-gold-500 transition text-lg">
+          <i class="fab fa-instagram"></i>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+
+</html>
