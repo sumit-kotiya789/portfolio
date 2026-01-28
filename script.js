@@ -391,26 +391,28 @@ document.addEventListener('DOMContentLoaded', () => {
       logContainer.removeChild(logContainer.firstChild);
     }
   }
+  //============ Contact Me Success Feedback ============
   document.getElementById('contactForm').addEventListener('submit', async function (e) {
     e.preventDefault();
-
     const form = e.target;
     const submitBtn = form.querySelector('button');
+
+    // UI Feedback: Start
     submitBtn.innerText = "Synchronizing...";
     submitBtn.disabled = true;
+    addLog('Init: Outbound Mail Transaction...', 'SYS');
 
-    // 1. Prepare data for Netlify Forms
     const formData = new FormData(form);
 
     try {
-      // 2. Submit to Netlify (Captures & Saves data in your Dashboard)
+      // 1. Submit to Netlify
       await fetch("/", {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
         body: new URLSearchParams(formData).toString(),
       });
 
-      // 3. Submit to EmailJS (Sends your Custom Styled Email)
+      // 2. Submit to EmailJS
       const templateParams = {
         name: document.getElementById('userName').value,
         email: document.getElementById('userEmail').value,
@@ -419,25 +421,35 @@ document.addEventListener('DOMContentLoaded', () => {
 
       await emailjs.send('service_2wl6o5l', 'template_trj1vwo', templateParams);
 
-      // 4. Success - Trigger your Smart Contract Receipt Modal
+      // 3. UI Feedback: Success
+      addLog('Mail: Transaction confirmed on-chain', 'OK');
+      submitBtn.innerText = "Message Sent!";
+      submitBtn.classList.remove('gold-bg');
+      submitBtn.classList.add('bg-green-500', 'text-white');
+
+      // Trigger Receipt Modal
       const modal = document.getElementById('receiptModal');
       if (modal) {
-        // Generate fake hash for the "Transaction"
         const fakeHash = '0x' + Array.from({ length: 40 }, () => Math.floor(Math.random() * 16).toString(16)).join('');
         document.getElementById('receipt-hash').innerText = fakeHash.substring(0, 10) + '...' + fakeHash.substring(34);
         document.getElementById('receipt-from').innerText = templateParams.name;
-
         modal.classList.remove('hidden');
         modal.classList.add('flex');
       }
 
       form.reset();
-      addLog('Mail: Transaction confirmed on-chain', 'OK');
+
+      // Revert button after 3 seconds
+      setTimeout(() => {
+        submitBtn.innerText = "Send Message";
+        submitBtn.classList.add('gold-bg');
+        submitBtn.classList.remove('bg-green-500', 'text-white');
+      }, 3000);
 
     } catch (error) {
+      addLog('Error: Outbound Mail failed', 'SYS');
       console.error("System Error:", error);
       alert("Transaction Failed. Check Console.");
-    } finally {
       submitBtn.innerText = "Send Message";
       submitBtn.disabled = false;
     }
