@@ -336,3 +336,14 @@ body.debug-mode #ping-ms {
     height: auto;
     touch-action: none; /* Crucial: stops the browser from scrolling while dragging */
 }
+
+#skills-physics-container {
+    touch-action: none; /* Prevents mobile scroll while dragging blocks */
+    user-select: none;
+}
+
+#skills-physics-container canvas {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}

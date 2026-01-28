@@ -534,20 +534,55 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
-  //============Physics Engine: Active // Drag &Toss Skills====================
-  // Function to initialize Physics
+  //============ Physics Engine: Active // Drag & Toss Skills ============
+
+  const skillData = [
+    { name: 'Android', logo: './icons/android.png' },
+    { name: 'Java', logo: './icons/java.png' },
+    { name: 'AJAX', logo: './icons/ajax.svg' },
+    { name: 'XML', logo: './icons/xml.png' },
+    { name: 'Room', logo: './icons/room.png' },
+    { name: 'Retrofit', logo: './icons/retrofit.webp' },
+    { name: 'HTML', logo: './icons/html.png' },
+    { name: 'CSS', logo: './icons/css.png' },
+    { name: 'JavaScript', logo: './icons/javascript.png' },
+    { name: 'Bootstrap', logo: './icons/bootstrap.png' },
+    { name: 'PHP', logo: './icons/php.png' },
+    { name: 'Node.js', logo: './icons/nodejs.png' },
+    { name: 'TypeScript', logo: './icons/typescript.png' },
+    { name: 'MySQL', logo: './icons/mysql.png' },
+    { name: 'PostgreSQL', logo: './icons/postgresql.png' },
+    { name: 'SQLite', logo: './icons/sqlite.png' },
+    { name: 'Firebase', logo: './icons/firebase.png' },
+    { name: 'Ethereum', logo: './icons/ethereum.png' },
+    { name: 'BSC', logo: './icons/bsc.png' },
+    { name: 'Git', logo: './icons/git.png' },
+    { name: 'Linux', logo: './icons/linux.png' },
+    { name: 'Postman', logo: './icons/postman.png' },
+    { name: 'Vite', logo: './icons/vite.png' },
+    { name: 'Websocket', logo: './icons/websocket.png' },
+    { name: 'Solidity', logo: './icons/solidity.png' }
+  ];
+
+  // 2. Preload Images with Error Handling
+  const loadedIcons = {};
+  skillData.forEach(skill => {
+    const img = new Image();
+    img.src = skill.logo;
+    loadedIcons[skill.name] = img;
+  });
+
   const initPhysicsSkills = () => {
     const container = document.getElementById('skills-physics-container');
     if (!container) return;
 
-    // Clear previous canvas if it exists (prevents duplicates on resize)
-    container.innerHTML = '<div class="absolute top-4 left-4 z-10 pointer-events-none"><span class="text-[10px] font-mono text-gold-500/50 uppercase tracking-widest">Physics Engine: Drag & Toss Skills</span></div>';
+    // Reset container for responsiveness
+    container.innerHTML = '<div class="absolute top-4 left-4 z-10 pointer-events-none"><span class="text-[10px] font-mono text-gold-500/50 uppercase tracking-widest">Physics Engine: Drag & Toss Logos</span></div>';
 
     const { Engine, Render, Runner, Bodies, Composite, Mouse, MouseConstraint, Events } = Matter;
-
     const engine = Engine.create();
 
-    // Get actual dimensions
+    // Use clientWidth for mobile accuracy
     const width = container.clientWidth;
     const height = container.clientHeight;
 
@@ -559,53 +594,70 @@ document.addEventListener('DOMContentLoaded', () => {
         height: height,
         wireframes: false,
         background: 'transparent',
-        pixelRatio: window.devicePixelRatio // Improves mobile clarity
+        pixelRatio: window.devicePixelRatio || 1
       }
     });
 
-    // Walls - Adjusted for dynamic width
+    // Invisible Boundaries
     const wallOptions = { isStatic: true, render: { visible: false } };
-    const ground = Bodies.rectangle(width / 2, height + 10, width, 20, wallOptions);
-    const leftWall = Bodies.rectangle(-10, height / 2, 20, height, wallOptions);
-    const rightWall = Bodies.rectangle(width + 10, height / 2, 20, height, wallOptions);
+    const ground = Bodies.rectangle(width / 2, height + 25, width, 50, wallOptions);
+    const leftWall = Bodies.rectangle(-25, height / 2, 50, height, wallOptions);
+    const rightWall = Bodies.rectangle(width + 25, height / 2, 50, height, wallOptions);
 
-    // Skill List
-    const skills = ['Android', 'Java','AJAX', 'XML', 'Room', 'Retrofit', 'HTML', 'CSS', 'JavaScript', 'Bootstrap', 'PHP', 'Node.js', 'TypeScript', 'REST API', 'MySQL', 'PostgreSQL', 'SQLite', 'Firebase', 'Web3.js', 'Ethers.js', 'Solidity', 'Ethereum', 'BSC', 'opBNB', 'TRON', 'Git', 'GitHub', 'Postman', 'Bun', 'Vite', 'Linux','Websocket'];
-
-
-    const skillBodies = skills.map((skill, i) => {
-      // Mobile-friendly spacing: drop them in a stack instead of a long line
-      const randomX = Math.random() * (width - 100) + 50;
-      return Bodies.rectangle(randomX, -50 - (i * 30), 80, 35, {
+    // Create Bodies (Randomized spawn for mobile visibility)
+    const skillBodies = skillData.map((skill, i) => {
+      const randomX = Math.random() * (width - 60) + 30;
+      return Bodies.rectangle(randomX, -50 - (i * 40), 50, 50, {
         render: {
           fillStyle: '#1a1a1a',
           strokeStyle: '#D4AF37',
-          lineWidth: 2
+          lineWidth: 1
         },
         chamfer: { radius: 10 },
-        label: skill
+        label: skill.name
       });
     });
 
-    // Custom Rendering for Text
+    // Custom Rendering: Safe Image Draw
     Events.on(render, 'afterRender', () => {
-      const context = render.context;
-      context.font = "bold 12px monospace";
-      context.textAlign = "center";
-      context.fillStyle = "#D4AF37";
+      const ctx = render.context;
+      const isDebug = document.body.classList.contains('debug-mode');
+
       skillBodies.forEach(body => {
         const { x, y } = body.position;
-        context.save();
-        context.translate(x, y);
-        context.rotate(body.angle);
-        context.fillText(body.label, 0, 5);
-        context.restore();
+        const icon = loadedIcons[body.label];
+
+        ctx.save();
+        ctx.translate(x, y);
+        ctx.rotate(body.angle);
+
+        // Safety Check: Only draw if image is fully loaded and not broken
+        if (icon && icon.complete && icon.naturalWidth !== 0) {
+          try {
+            if (isDebug) ctx.filter = 'hue-rotate(140deg) saturate(3)';
+            ctx.drawImage(icon, -15, -15, 30, 30);
+          } catch (e) {
+            renderTextFallback(ctx, body.label);
+          }
+        } else {
+          renderTextFallback(ctx, body.label);
+        }
+        ctx.restore();
       });
     });
 
+    function renderTextFallback(ctx, text) {
+      ctx.filter = 'none';
+      ctx.fillStyle = "#D4AF37";
+      ctx.font = "bold 9px monospace";
+      ctx.textAlign = "center";
+      ctx.fillText(text, 0, 4);
+    }
+
+    // Interaction Controls
     const mouse = Mouse.create(render.canvas);
 
-    // FIX for Mobile Keyboard & Scrolling
+    // Prevent scrolling while interacting on mobile
     mouse.element.removeEventListener("mousewheel", mouse.mousewheel);
     mouse.element.removeEventListener("DOMMouseScroll", mouse.mousewheel);
 
@@ -614,7 +666,7 @@ document.addEventListener('DOMContentLoaded', () => {
       constraint: { stiffness: 0.2, render: { visible: false } }
     });
 
-    // Force blur terminal when touching physics
+    // Blur terminal input to prevent keyboard popping up
     Events.on(mouseConstraint, 'mousedown', () => {
       document.getElementById('terminal-input')?.blur();
     });
@@ -622,22 +674,22 @@ document.addEventListener('DOMContentLoaded', () => {
     Composite.add(engine.world, [ground, leftWall, rightWall, ...skillBodies, mouseConstraint]);
 
     Render.run(render);
-    const runner = Runner.create();
-    Runner.run(runner, engine);
+    Runner.run(Runner.create(), engine);
   };
 
-  // Re-init on resize to keep it responsive
+  // Handle Screen Resize
+  let resizeTimer;
   window.addEventListener('resize', () => {
-    // Only re-init if width actually changed (prevents mobile URL bar glitch)
-    const oldWidth = document.getElementById('skills-physics-container').dataset.width;
-    if (oldWidth !== window.innerWidth.toString()) {
-      initPhysicsSkills();
-      document.getElementById('skills-physics-container').dataset.width = window.innerWidth;
-    }
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => {
+      const container = document.getElementById('skills-physics-container');
+      if (container) initPhysicsSkills();
+    }, 250);
   });
 
   window.addEventListener('load', initPhysicsSkills);
-  //============Physics Engine: Active // Drag &Toss Skills====================
+
+  //============ Physics Engine Footer ============
 
 
 
