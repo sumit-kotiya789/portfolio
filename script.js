@@ -400,17 +400,74 @@ document.addEventListener('DOMContentLoaded', () => {
   //============Contact Me====================
 
 
-
+  //============DEBUG TOGGLER====================
   const debugBtn = document.getElementById('debug-toggle');
-
   debugBtn.addEventListener('click', () => {
     document.body.classList.toggle('debug-mode');
-
-    // Optional: Add a console log to feel more "dev-like"
     if (document.body.classList.contains('debug-mode')) {
       console.log("%c Debug Mode Enabled: Scanning DOM Hierarchy...", "color: #D4AF37; font-weight: bold;");
     }
   });
+  //============DEBUG TOGGLER====================
+
+
+  //============SLEEP & ACTIVE MODE====================
+  function updateDevStatus() {
+    const statusDot = document.querySelector('#status-dot span:last-child');
+    const statusPing = document.querySelector('#status-dot span:first-child');
+    const statusText = document.getElementById('status-text');
+    const hour = new Date().getHours();
+
+    if (hour >= 23 || hour < 7) {
+      statusDot.classList.replace('bg-green-500', 'bg-yellow-500');
+      statusPing.classList.replace('bg-green-400', 'bg-yellow-400');
+      statusText.innerText = 'Node: Sleep Mode';
+    } else {
+      statusDot.classList.replace('bg-yellow-500', 'bg-green-500');
+      statusPing.classList.replace('bg-yellow-400', 'bg-green-400');
+      statusText.innerText = 'Node: Active';
+    }
+  }
+  updateDevStatus();
+  //============SLEEP & ACTIVE MODE====================
+
+
+
+  //============RAIN====================
+  const canvas = document.getElementById('matrix-canvas');
+  const ctx = canvas.getContext('2d');
+
+  function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+  window.addEventListener('resize', resizeCanvas);
+  resizeCanvas();
+
+  const characters = "01HEXSK789";
+  const fontSize = 14;
+  const columns = canvas.width / fontSize;
+  const drops = Array(Math.floor(columns)).fill(1);
+
+  function drawMatrix() {
+    ctx.fillStyle = "rgba(10, 10, 10, 0.05)";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    ctx.fillStyle = "#D4AF37"; 
+    ctx.font = fontSize + "px monospace";
+
+    for (let i = 0; i < drops.length; i++) {
+      const text = characters.charAt(Math.floor(Math.random() * characters.length));
+      ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+      if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+        drops[i] = 0;
+      }
+      drops[i]++;
+    }
+  }
+  setInterval(drawMatrix, 50);
+  //============RAIN====================
 
 
 
