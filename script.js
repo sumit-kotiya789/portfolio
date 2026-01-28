@@ -401,6 +401,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
+  const debugBtn = document.getElementById('debug-toggle');
+
+  debugBtn.addEventListener('click', () => {
+    document.body.classList.toggle('debug-mode');
+
+    // Optional: Add a console log to feel more "dev-like"
+    if (document.body.classList.contains('debug-mode')) {
+      console.log("%c Debug Mode Enabled: Scanning DOM Hierarchy...", "color: #D4AF37; font-weight: bold;");
+    }
+  });
+
 
 
 

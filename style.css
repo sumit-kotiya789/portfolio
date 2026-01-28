@@ -242,3 +242,52 @@ body {
   content: '_';
   animation: blink 1s step-end infinite;
 }
+
+/* 1. The Wireframe Effect */
+body.debug-mode * {
+    border: 0.5px dashed rgba(212, 175, 55, 0.3) !important;
+}
+
+/* 2. Component Tooltips */
+body.debug-mode [data-component]::before {
+    content: "Comp: <" attr(data-component) " /> | Render: " attr(data-render);
+    display: block;
+    position: absolute;
+    top: -12px;
+    left: 10px;
+    background: #D4AF37;
+    color: #0a0a0a;
+    font-family: monospace;
+    font-size: 8px;
+    font-weight: bold;
+    padding: 1px 4px;
+    border-radius: 2px;
+    z-index: 50;
+    pointer-events: none;
+    text-transform: uppercase;
+}
+
+/* 3. Positioning fix for the tooltips */
+body.debug-mode [data-component] {
+    position: relative !important;
+}
+
+/* 4. Scanning Line Animation (Optional) */
+body.debug-mode::after {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: rgba(212, 175, 55, 0.2);
+    box-shadow: 0 0 15px #D4AF37;
+    z-index: 100;
+    animation: scan 4s linear infinite;
+    pointer-events: none;
+}
+
+@keyframes scan {
+    0% { top: 0%; }
+    100% { top: 100%; }
+}
