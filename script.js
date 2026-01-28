@@ -368,30 +368,75 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   //============Contact Me====================
+  function addLog(message, type = 'INFO') {
+    const logContainer = document.getElementById('system-logs');
+    if (!logContainer) return; // Guard clause if container is missing
+
+    const time = new Date().toLocaleTimeString([], { hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit' });
+    const logEntry = document.createElement('div');
+
+    // Styling based on log type
+    const typeColor = type === 'OK' ? 'text-green-500' : type === 'SYS' ? 'text-blue-500' : 'text-gold-500';
+
+    logEntry.className = 'mb-1 opacity-0 transition-opacity duration-500';
+    logEntry.innerHTML = `<span class="text-gray-600">[${time}]</span> <span class="${typeColor}">[${type}]</span> ${message}`;
+
+    logContainer.appendChild(logEntry);
+
+    // Trigger fade-in
+    setTimeout(() => logEntry.classList.add('opacity-100'), 10);
+
+    // Keep only the last 10 logs to prevent overflow
+    if (logContainer.childNodes.length > 10) {
+      logContainer.removeChild(logContainer.firstChild);
+    }
+  }
   document.getElementById('contactForm').addEventListener('submit', async function (e) {
     e.preventDefault();
 
-    const formData = new FormData(this);
-    const submitBtn = this.querySelector('button');
-    submitBtn.innerText = "Sending...";
+    const form = e.target;
+    const submitBtn = form.querySelector('button');
+    submitBtn.innerText = "Synchronizing...";
     submitBtn.disabled = true;
 
+    // 1. Prepare data for Netlify Forms
+    const formData = new FormData(form);
+
     try {
-      const response = await fetch('contact.php', {
-        method: 'POST',
-        body: formData
+      // 2. Submit to Netlify (Captures & Saves data in your Dashboard)
+      await fetch("/", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: new URLSearchParams(formData).toString(),
       });
 
-      const result = await response.json();
+      // 3. Submit to EmailJS (Sends your Custom Styled Email)
+      const templateParams = {
+        name: document.getElementById('userName').value,
+        email: document.getElementById('userEmail').value,
+        message: document.getElementById('userMessage').value,
+      };
 
-      if (result.status === "success") {
-        alert("Thank you for contacting me. I will get back to you soon.");
-        this.reset();
-      } else {
-        alert("Error: " + result.message);
+      await emailjs.send('service_2wl6o5l', 'template_trj1vwo', templateParams);
+
+      // 4. Success - Trigger your Smart Contract Receipt Modal
+      const modal = document.getElementById('receiptModal');
+      if (modal) {
+        // Generate fake hash for the "Transaction"
+        const fakeHash = '0x' + Array.from({ length: 40 }, () => Math.floor(Math.random() * 16).toString(16)).join('');
+        document.getElementById('receipt-hash').innerText = fakeHash.substring(0, 10) + '...' + fakeHash.substring(34);
+        document.getElementById('receipt-from').innerText = templateParams.name;
+
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
       }
+
+      form.reset();
+      addLog('Mail: Transaction confirmed on-chain', 'OK');
+
     } catch (error) {
-      alert("An error occurred. Please try again.");
+      console.error("System Error:", error);
+      alert("Transaction Failed. Check Console.");
     } finally {
       submitBtn.innerText = "Send Message";
       submitBtn.disabled = false;
@@ -541,7 +586,6 @@ document.addEventListener('DOMContentLoaded', () => {
     { name: 'Java', logo: './icons/java.png' },
     { name: 'AJAX', logo: './icons/ajax.svg' },
     { name: 'XML', logo: './icons/xml.png' },
-    { name: 'Room', logo: './icons/room.png' },
     { name: 'Retrofit', logo: './icons/retrofit.webp' },
     { name: 'HTML', logo: './icons/html.png' },
     { name: 'CSS', logo: './icons/css.png' },

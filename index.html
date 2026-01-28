@@ -7,6 +7,13 @@
   <title>Sumit Kotiya | Android & Blockchain Developer</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.19.0/matter.min.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+  <script type="text/javascript">
+    (function () {
+      // Replace with your Public Key from EmailJS Account Settings
+      emailjs.init("DtyVAdnZZ6Xx3vzv9");
+    })();
+  </script>
   <script>
     tailwind.config = {
       theme: {
@@ -642,17 +649,19 @@
 
       <!-- Contact Form -->
       <div class="max-w-md mx-auto animate-on-scroll">
-        <form id="contactForm" class="space-y-4">
+        <form id="contactForm" name="contact" data-netlify="true" class="space-y-4">
+          <input type="hidden" name="form-name" value="contact" />
+
           <div class="space-y-2">
-            <input type="text" name="name" placeholder="Your Name" required
+            <input type="text" name="name" id="userName" placeholder="Your Name" required
               class="w-full p-3 bg-dark-700 border border-gray-800 rounded-lg focus:outline-none focus:border-gold-500 text-sm md:text-base" />
           </div>
           <div class="space-y-2">
-            <input type="email" name="email" placeholder="Your Email" required
+            <input type="email" name="email" id="userEmail" placeholder="Your Email" required
               class="w-full p-3 bg-dark-700 border border-gray-800 rounded-lg focus:outline-none focus:border-gold-500 text-sm md:text-base" />
           </div>
           <div class="space-y-2">
-            <textarea name="message" placeholder="Your Message" rows="4" required
+            <textarea name="message" id="userMessage" placeholder="Your Message" rows="4" required
               class="w-full p-3 bg-dark-700 border border-gray-800 rounded-lg focus:outline-none focus:border-gold-500 text-sm md:text-base"></textarea>
           </div>
           <button type="submit"
