@@ -291,3 +291,8 @@ body.debug-mode::after {
     0% { top: 0%; }
     100% { top: 100%; }
 }
+
+#matrix-canvas {
+    /* Subtle blur adds a neon/glow effect to the falling code */
+    filter: drop-shadow(0 0 5px rgba(212, 175, 55, 0.5));
+}

@@ -444,20 +444,23 @@ document.addEventListener('DOMContentLoaded', () => {
   window.addEventListener('resize', resizeCanvas);
   resizeCanvas();
 
-  const characters = "01HEXSK789";
-  const fontSize = 14;
-  const columns = canvas.width / fontSize;
-  const drops = Array(Math.floor(columns)).fill(1);
+  // Character set: Binary + Blockchain Hex
+  const characters = "01";
+  const fontSize = 12;
+  const columns = Math.floor(canvas.width / fontSize);
+  const drops = Array(columns).fill(1);
 
   function drawMatrix() {
-    ctx.fillStyle = "rgba(10, 10, 10, 0.05)";
+    ctx.fillStyle = "rgba(10, 10, 10, 0.1)";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-    ctx.fillStyle = "#D4AF37"; 
-    ctx.font = fontSize + "px monospace";
+    ctx.font = `bold ${fontSize}px monospace`;
 
     for (let i = 0; i < drops.length; i++) {
       const text = characters.charAt(Math.floor(Math.random() * characters.length));
+
+      ctx.fillStyle = Math.random() > 0.9 ? "#FFFFFF" : "#D4AF37";
+
       ctx.fillText(text, i * fontSize, drops[i] * fontSize);
 
       if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
@@ -466,7 +469,8 @@ document.addEventListener('DOMContentLoaded', () => {
       drops[i]++;
     }
   }
-  setInterval(drawMatrix, 50);
+
+  setInterval(drawMatrix, 33);
   //============RAIN====================
 
 
